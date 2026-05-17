@@ -23,13 +23,15 @@
             <div class="table-responsive">
                 <table class="table datatable">
                     <thead class="thead-light">
-                        <th>ID</th>
-                        <th>{{ __('account.code') }}</th>
-                        <th>{{ __('account.name') }}</th>
-                        <th>{{ __('account.area') }}</th>
-                        <th>{{ __('account.contact') }}</th>
-                        <th>{{ __('transaction.balance') }}</th>
-                        <th>{{ __('account.actions') }}</th>
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ __('account.code') }}</th>
+                            <th>{{ __('account.name') }}</th>
+                            <th>{{ __('account.area') }}</th>
+                            <th>{{ __('account.contact') }}</th>
+                            <th>{{ __('transaction.balance') }}</th>
+                            <th>{{ __('account.actions') }}</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @forelse($accounts as $account)
