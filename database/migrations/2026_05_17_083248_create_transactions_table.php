@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('number')->nullable();
             $table->decimal('credit', 15, 2)->default(0);
             $table->decimal('debit', 15, 2)->default(0);
-            $table->decimal('toman_credit', 15, 2)->default(0);
-            $table->decimal('toman_debit', 15, 2)->default(0);
+            $table->decimal('rupees_credit', 15, 2)->default(0);
+            $table->decimal('rupees_debit', 15, 2)->default(0);
             $table->decimal('dollar_credit', 15, 2)->default(0);
             $table->decimal('dollar_debit', 15, 2)->default(0);
-            $table->decimal('afg_credit', 15, 2)->default(0);
-            $table->decimal('afg_debit', 15, 2)->default(0);
+            $table->decimal('afghani_credit', 15, 2)->default(0);
+            $table->decimal('afghani_debit', 15, 2)->default(0);
             $table->timestamps();
         });
     }

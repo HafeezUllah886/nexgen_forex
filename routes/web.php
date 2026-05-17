@@ -29,10 +29,14 @@ Route::middleware(['auth', 'language'])->group(function () {
 
     Route::get('/transactions/create', [TransactionsController::class, 'create'])
         ->name('transactions.create');
+    Route::post('/transactions', [TransactionsController::class, 'store'])
+        ->name('transactions.store');
 
-    Route::get('/transactions/history', function () {
-        return view('transactions.history');
-    })->name('transactions.history');
+    Route::get('/transactions/history', [TransactionsController::class, 'index'])
+        ->name('transactions.history');
+
+    Route::get('/accounts/{account}/balance', [AccountsController::class, 'getBalance'])
+        ->name('accounts.balance');
 
     // Accounts resource routes
     Route::resource('accounts', AccountsController::class)->names('accounts');

@@ -107,4 +107,18 @@ class AccountsController extends Controller
 
         return redirect()->route('accounts.index')->with('success', __('account.account_deleted'));
     }
+
+    /**
+     * Get the balance of the specified account.
+     */
+    public function getBalance(accounts $account)
+    {
+        $creditSum = \DB::table('transactions')->where('account_id', $account->id)->sum('credit');
+        $debitSum = \DB::table('transactions')->where('account_id', $account->id)->sum('debit');
+        $balance = $creditSum - $debitSum;
+
+        return response()->json([
+            'balance' => number_format($balance, 2, '.', '')
+        ]);
+    }
 }

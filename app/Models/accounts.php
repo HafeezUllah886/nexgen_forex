@@ -12,4 +12,9 @@ class accounts extends Model
     {
         return $this->belongsTo(Area::class, 'area_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transactions::class, 'account_id');
+    }
 }
