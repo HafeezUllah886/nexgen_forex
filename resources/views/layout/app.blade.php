@@ -64,6 +64,47 @@
             object-fit: cover;
             border-radius: 2px;
         }
+
+        /* Mobile language switcher tweaks */
+        .mobile-user-menu .flag-icon {
+            width: 22px;
+            height: 15px;
+        }
+
+        .mobile-user-menu .dropdown-menu .flag-icon {
+            width: 20px;
+            height: 14px;
+        }
+
+        .mobile-user-menu .dropdown-toggle {
+            display: flex !important;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #37404A;
+            padding: 0 8px;
+        }
+
+        .mobile-user-menu .dropdown-menu {
+            min-width: 130px;
+            padding: 6px;
+        }
+
+        .mobile-user-menu .dropdown-menu a {
+            padding: 8px 10px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: normal;
+            border-radius: 5px;
+            color: #37404A;
+        }
+
+        .mobile-user-menu .dropdown-menu a:hover {
+            background: #f9f9f9;
+        }
     </style>
 
 </head>
@@ -104,63 +145,45 @@
                     </span>
                 </a>
 
+                <!-- Mobile Language Switcher -->
+                <div class="mobile-user-menu">
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            @if (($currentLang ?? 'en') == 'fa')
+                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Language"
+                                    class="flag-icon">
+                            @elseif(($currentLang ?? 'en') == 'ur')
+                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Language"
+                                    class="flag-icon">
+                            @else
+                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="Language"
+                                    class="flag-icon">
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="javascript:void(0);"
+                                class="dropdown-item language-option d-flex align-items-center" data-lang="en">
+                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English"
+                                    class="flag-icon"> English
+                            </a>
+                            <a href="javascript:void(0);"
+                                class="dropdown-item language-option d-flex align-items-center" data-lang="ur">
+                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Urdu"
+                                    class="flag-icon"> اردو
+                            </a>
+                            <a href="javascript:void(0);"
+                                class="dropdown-item language-option d-flex align-items-center" data-lang="fa">
+                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi"
+                                    class="flag-icon"> فارسی
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Mobile Language Switcher -->
+
                 <!-- Header Menu -->
                 <ul class="nav user-menu">
-
-                    <!-- Search -->
-                    <li class="nav-item nav-searchinputs">
-                        <div class="top-nav-search">
-                            <a href="javascript:void(0);" class="responsive-search">
-                                <i class="fa fa-search"></i>
-                            </a>
-                            <form action="#" class="dropdown">
-                                <div class="searchinputs input-group dropdown-toggle" id="dropdownMenuClickable"
-                                    data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                                    <input type="text" placeholder="Search">
-                                    <div class="search-addon">
-                                        <span><i class="ti ti-search"></i></span>
-                                    </div>
-                                    <span class="input-group-text">
-                                        <kbd class="d-flex align-items-center"><img
-                                                src="{{ asset('assets/img/icons/command.svg') }}" alt="img"
-                                                class="me-1">K</kbd>
-                                    </span>
-                                </div>
-                                <div class="dropdown-menu search-dropdown" aria-labelledby="dropdownMenuClickable">
-                                    <div class="search-info">
-                                        <h6><span><i data-feather="search" class="feather-16"></i></span>Recent Searches
-                                        </h6>
-                                        <ul class="search-tags">
-                                            <li><a href="javascript:void(0);">Products</a></li>
-                                            <li><a href="javascript:void(0);">Sales</a></li>
-                                            <li><a href="javascript:void(0);">Applications</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="search-info">
-                                        <h6><span><i data-feather="help-circle" class="feather-16"></i></span>Help
-                                        </h6>
-                                        <p>How to Change Product Volume from 0 to 200 on Inventory management</p>
-                                        <p>Change Product Name</p>
-                                    </div>
-                                    <div class="search-info">
-                                        <h6><span><i data-feather="user" class="feather-16"></i></span>Customers</h6>
-                                        <ul class="customers">
-                                            <li><a href="javascript:void(0);">Aron Varu<img
-                                                        src="{{ asset('assets/img/profiles/avator1.jpg') }}"
-                                                        alt="Img" class="img-fluid"></a></li>
-                                            <li><a href="javascript:void(0);">Jonita<img
-                                                        src="{{ asset('assets/img/profiles/avatar-01.jpg') }}"
-                                                        alt="Img" class="img-fluid"></a></li>
-                                            <li><a href="javascript:void(0);">Aaron<img
-                                                        src="{{ asset('assets/img/profiles/avatar-10.jpg') }}"
-                                                        alt="Img" class="img-fluid"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-                    <!-- /Search -->
 
 
 
