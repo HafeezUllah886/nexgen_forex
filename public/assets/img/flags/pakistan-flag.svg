@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
+  <!-- Dark green field -->
+  <rect width="60" height="40" fill="#01411C"/>
+  <!-- White vertical stripe at hoist -->
+  <rect width="12" height="40" fill="#fff"/>
+  <!-- Crescent moon -->
+  <path d="M30 8 A10 10 0 1 1 30 28 A7 7 0 1 0 30 8" fill="#fff"/>
+  <!-- Star -->
+  <polygon points="38,14 39.5,17 43,17.5 40.5,20 41,23.5 38,21.5 35,23.5 35.5,20 33,17.5 36.5,17" fill="#fff"/>
+</svg>

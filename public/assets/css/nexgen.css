@@ -1,0 +1,69 @@
+.page-wrapper .content .card .card-body {
+    padding: 1.5rem;
+}
+
+.page-wrapper .content .card .card-body > form {
+    margin: 0;
+}
+
+.page-wrapper .content .card .card-body > form .row {
+    --bs-gutter-x: 1.25rem;
+    --bs-gutter-y: 0;
+}
+
+.page-wrapper .content .card .card-body > form .form-group {
+    margin-bottom: 1rem;
+}
+
+.page-wrapper .content .card .card-body > form label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.45rem;
+    color: #212B36;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.page-wrapper .content .card .card-body > form .form-control,
+.page-wrapper .content .card .card-body > form .form-select {
+    min-height: 42px;
+}
+
+.page-wrapper .content .card .card-body > form textarea.form-control {
+    min-height: 96px;
+}
+
+.page-wrapper .content .card .card-body > form > .form-group:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding-top: 1rem;
+    border-top: 1px solid #E6EAED;
+}
+
+.page-wrapper .content .card .card-body > form > .form-group:last-child .btn {
+    min-width: 112px;
+    margin: 0;
+}
+
+.page-wrapper .content .card .card-body > form .alert ul {
+    margin-bottom: 0;
+}
+
+@media (max-width: 767.98px) {
+    .page-wrapper .content .card .card-body {
+        padding: 1rem;
+    }
+
+    .page-wrapper .content .card .card-body > form > .form-group:last-child {
+        align-items: stretch;
+    }
+
+    .page-wrapper .content .card .card-body > form > .form-group:last-child .btn {
+        flex: 1 1 100%;
+    }
+}
