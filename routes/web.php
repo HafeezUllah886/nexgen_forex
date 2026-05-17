@@ -32,6 +32,8 @@ Route::middleware(['auth', 'language'])->group(function () {
 
     // Accounts resource routes
     Route::resource('accounts', App\Http\Controllers\AccountsController::class)->names('accounts');
+    Route::post('/areas', [App\Http\Controllers\AreaController::class, 'store'])->name('areas.store');
+    Route::put('/areas/{area}', [App\Http\Controllers\AreaController::class, 'update'])->name('areas.update');
 
     Route::get('/reports', function () {
         return view('reports.index');

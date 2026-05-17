@@ -15,8 +15,6 @@
     <meta name="robots" content="index, follow">
     <title>NexGen Forex</title>
 
-    <script src="{{ asset('assets/js/theme-script.js') }}"></script>
-
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
 
@@ -24,10 +22,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/apple-touch-icon.png') }}">
 
     <!-- Bootstrap CSS - RTL or LTR based on direction -->
-    @if(($direction ?? 'ltr') === 'rtl')
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
+    @if (($direction ?? 'ltr') === 'rtl')
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
     @else
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     @endif
 
     <!-- Datetimepicker CSS -->
@@ -54,9 +52,6 @@
 
     <!-- Map CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-2.0.5.css') }}">
-
-    <!-- Color Picker Css -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/%40simonwep/pickr/themes/nano.min.css') }}">
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -151,14 +146,14 @@
                                         <h6><span><i data-feather="user" class="feather-16"></i></span>Customers</h6>
                                         <ul class="customers">
                                             <li><a href="javascript:void(0);">Aron Varu<img
-                                                        src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="Img"
-                                                        class="img-fluid"></a></li>
+                                                        src="{{ asset('assets/img/profiles/avator1.jpg') }}"
+                                                        alt="Img" class="img-fluid"></a></li>
                                             <li><a href="javascript:void(0);">Jonita<img
-                                                        src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" alt="Img"
-                                                        class="img-fluid"></a></li>
+                                                        src="{{ asset('assets/img/profiles/avatar-01.jpg') }}"
+                                                        alt="Img" class="img-fluid"></a></li>
                                             <li><a href="javascript:void(0);">Aaron<img
-                                                        src="{{ asset('assets/img/profiles/avatar-10.jpg') }}" alt="Img"
-                                                        class="img-fluid"></a></li>
+                                                        src="{{ asset('assets/img/profiles/avatar-10.jpg') }}"
+                                                        alt="Img" class="img-fluid"></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -167,29 +162,38 @@
                     </li>
                     <!-- /Search -->
 
-                    
-                    
+
+
                     <!-- Flag -->
                     <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"
                             role="button">
-                            @if(($currentLang ?? 'en') == 'fa')
-                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Language" class="flag-icon">
+                            @if (($currentLang ?? 'en') == 'fa')
+                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Language"
+                                    class="flag-icon">
                             @elseif(($currentLang ?? 'en') == 'ur')
-                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Language" class="flag-icon">
+                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Language"
+                                    class="flag-icon">
                             @else
-                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="Language" class="flag-icon">
+                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="Language"
+                                    class="flag-icon">
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="javascript:void(0);" class="dropdown-item language-option d-flex align-items-center" data-lang="en">
-                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English" class="flag-icon me-2"> English
+                            <a href="javascript:void(0);"
+                                class="dropdown-item language-option d-flex align-items-center" data-lang="en">
+                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English"
+                                    class="flag-icon me-2"> English
                             </a>
-                            <a href="javascript:void(0);" class="dropdown-item language-option d-flex align-items-center" data-lang="ur">
-                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Urdu" class="flag-icon me-2"> اردو
+                            <a href="javascript:void(0);"
+                                class="dropdown-item language-option d-flex align-items-center" data-lang="ur">
+                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Urdu"
+                                    class="flag-icon me-2"> اردو
                             </a>
-                            <a href="javascript:void(0);" class="dropdown-item language-option d-flex align-items-center" data-lang="fa">
-                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi" class="flag-icon me-2"> فارسی
+                            <a href="javascript:void(0);"
+                                class="dropdown-item language-option d-flex align-items-center" data-lang="fa">
+                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi"
+                                    class="flag-icon me-2"> فارسی
                             </a>
                         </div>
                     </li>
@@ -205,8 +209,6 @@
         </div>
 
         @include('layout.sidebar')
-
-
         <div class="page-wrapper">
             <div class="content">
                 @yield('content')
@@ -255,11 +257,7 @@
     <script src="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-in-mill.js') }}"></script>
     <script src="{{ asset('assets/js/jvectormap.js') }}"></script>
 
-    <!-- Color Picker JS -->
-    <script src="{{ asset('assets/plugins/%40simonwep/pickr/pickr.es5.min.js') }}"></script>
-
     <!-- Custom JS -->
-    <script src="{{ asset('assets/js/theme-colorpicker.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
     <!-- Logout Form -->
@@ -280,26 +278,28 @@
                     e.preventDefault();
                     const lang = this.getAttribute('data-lang');
 
-                    fetch('{{ route("language.switch") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({ lang: lang })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Update direction
-                            document.documentElement.setAttribute('dir', data.direction);
-                            document.documentElement.setAttribute('lang', lang);
+                    fetch('{{ route('language.switch') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                lang: lang
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Update direction
+                                document.documentElement.setAttribute('dir', data.direction);
+                                document.documentElement.setAttribute('lang', lang);
 
-                            // Reload page to apply changes
-                            location.reload();
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+                                // Reload page to apply changes
+                                location.reload();
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
                 });
             });
         });

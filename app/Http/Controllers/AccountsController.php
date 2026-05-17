@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\accounts;
+use App\Models\Area;
 use Illuminate\Http\Request;
 
 class AccountsController extends Controller
@@ -12,7 +13,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $accounts = accounts::orderBy('created_at', 'desc')->paginate(10);
+        $accounts = accounts::with('assignedArea')->orderBy('created_at', 'desc')->paginate(10);
         return view('accounts.index', compact('accounts'));
     }
 
@@ -21,7 +22,8 @@ class AccountsController extends Controller
      */
     public function create()
     {
-        return view('accounts.create');
+        $areas = Area::orderBy('name')->get();
+        return view('accounts.create', compact('areas'));
     }
 
     /**
@@ -32,12 +34,21 @@ class AccountsController extends Controller
         $request->validate([
             'code' => 'required|string|max:255|unique:accounts',
             'name' => 'required|string|max:255',
-            'area' => 'nullable|string|max:255',
+            'area_id' => 'nullable|exists:areas,id',
             'address' => 'nullable|string',
             'contact' => 'nullable|string|max:255',
         ]);
 
-        accounts::create($request->all());
+        $area = Area::find($request->area_id);
+
+        accounts::create([
+            'code' => $request->code,
+            'name' => $request->name,
+            'area_id' => $area?->id,
+            'area' => $area?->name ?? '',
+            'address' => $request->address ?? '',
+            'contact' => $request->contact ?? '',
+        ]);
 
         return redirect()->route('accounts.index')->with('success', __('account.account_created'));
     }
@@ -47,6 +58,7 @@ class AccountsController extends Controller
      */
     public function show(accounts $account)
     {
+        $account->load('assignedArea');
         return view('accounts.show', compact('account'));
     }
 
@@ -55,7 +67,8 @@ class AccountsController extends Controller
      */
     public function edit(accounts $account)
     {
-        return view('accounts.edit', compact('account'));
+        $areas = Area::orderBy('name')->get();
+        return view('accounts.edit', compact('account', 'areas'));
     }
 
     /**
@@ -66,12 +79,21 @@ class AccountsController extends Controller
         $request->validate([
             'code' => 'required|string|max:255|unique:accounts,code,' . $account->id,
             'name' => 'required|string|max:255',
-            'area' => 'nullable|string|max:255',
+            'area_id' => 'nullable|exists:areas,id',
             'address' => 'nullable|string',
             'contact' => 'nullable|string|max:255',
         ]);
 
-        $account->update($request->all());
+        $area = Area::find($request->area_id);
+
+        $account->update([
+            'code' => $request->code,
+            'name' => $request->name,
+            'area_id' => $area?->id,
+            'area' => $area?->name ?? '',
+            'address' => $request->address ?? '',
+            'contact' => $request->contact ?? '',
+        ]);
 
         return redirect()->route('accounts.index')->with('success', __('account.account_updated'));
     }

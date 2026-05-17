@@ -6,28 +6,29 @@
         </div>
         <div class="page-btn">
             <a href="{{ route('accounts.create') }}" class="btn btn-added">
-                <img src="{{ asset('assets/img/icons/plus.svg') }}" alt="img" class="me-1">{{ __('account.add_new_account') }}
+                <i class="ti ti-plus fs-16 me-1"></i>{{ __('account.add_new_account') }}
             </a>
         </div>
     </div>
-
     <div class="card">
-        <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+            <div class="search-set">
+                <div class="search-input">
+                    <span class="btn-searchset"><i class="ti ti-search fs-14 feather-search"></i></span>
+                </div>
+            </div>
 
+        </div>
+        <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table datanew">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>{{ __('account.code') }}</th>
-                            <th>{{ __('account.name') }}</th>
-                            <th>{{ __('account.area') }}</th>
-                            <th>{{ __('account.contact') }}</th>
-                            <th>{{ __('account.actions') }}</th>
-                        </tr>
+                <table class="table datatable">
+                    <thead class="thead-light">
+                        <th>ID</th>
+                        <th>{{ __('account.code') }}</th>
+                        <th>{{ __('account.name') }}</th>
+                        <th>{{ __('account.area') }}</th>
+                        <th>{{ __('account.contact') }}</th>
+                        <th>{{ __('account.actions') }}</th>
                     </thead>
                     <tbody>
                         @forelse($accounts as $account)
@@ -35,16 +36,14 @@
                                 <td>{{ $account->id }}</td>
                                 <td>{{ $account->code }}</td>
                                 <td>{{ $account->name }}</td>
-                                <td>{{ $account->area }}</td>
+                                <td>{{ $account->assignedArea?->name ?? $account->area }}</td>
                                 <td>{{ $account->contact }}</td>
                                 <td>
-                                    <a href="{{ route('accounts.show', $account->id) }}" class="btn btn-sm btn-info">{{ __('messages.view') }}</a>
-                                    <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-sm btn-primary">{{ __('messages.edit') }}</a>
-                                    <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('{{ __('account.confirm_delete') }}')">{{ __('messages.delete') }}</button>
-                                    </form>
+                                    <a href="{{ route('accounts.show', $account->id) }}"
+                                        class="btn btn-sm btn-info">{{ __('messages.view') }}</a>
+                                    <a href="{{ route('accounts.edit', $account->id) }}"
+                                        class="btn btn-sm btn-primary">{{ __('messages.edit') }}</a>
+
                                 </td>
                             </tr>
                         @empty
@@ -52,12 +51,9 @@
                                 <td colspan="6" class="text-center">{{ __('account.no_accounts') }}</td>
                             </tr>
                         @endforelse
+
                     </tbody>
                 </table>
-            </div>
-
-            <div class="mt-3">
-                {{ $accounts->links() }}
             </div>
         </div>
     </div>

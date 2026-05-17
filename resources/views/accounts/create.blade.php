@@ -4,6 +4,11 @@
         <div class="page-title">
             <h4>{{ __('account.create_account') }}</h4>
         </div>
+        <div class="page-btn">
+            <button type="button" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#manageAreasModal">
+                <i class="ti ti-map-pin fs-16 me-1"></i>Manage Areas
+            </button>
+        </div>
     </div>
 
     <div class="card">
@@ -38,7 +43,21 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>{{ __('account.area') }}</label>
-                            <input type="text" name="area" class="form-control">
+                            <div class="input-group">
+                                <select name="area_id" class="form-select">
+                                    <option value="">Select Area</option>
+                                    @foreach ($areas as $area)
+                                        <option value="{{ $area->id }}"
+                                            {{ old('area_id') == $area->id ? 'selected' : '' }}>
+                                            {{ $area->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-primary btn-icon" data-bs-toggle="modal"
+                                    data-bs-target="#createAreaModal" title="Create Area">
+                                    <i class="ti ti-plus fs-16"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -57,6 +76,60 @@
                     <a href="{{ route('accounts.index') }}" class="btn btn-secondary">{{ __('messages.cancel') }}</a>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="manageAreasModal" tabindex="-1" aria-labelledby="manageAreasModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageAreasModalLabel">Manage Areas</h5>
+                    <button type="button" class="btn btn-primary btn-sm ms-auto me-2" data-bs-toggle="modal"
+                        data-bs-target="#createAreaModal">
+                        <i class="ti ti-plus fs-16 me-1"></i>Create Area
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    @forelse ($areas as $area)
+                        <form action="{{ route('areas.update', $area->id) }}" method="POST"
+                            class="area-edit-row d-flex align-items-center gap-2 mb-3">
+                            @csrf
+                            @method('PUT')
+                            <input type="text" name="name" class="form-control" value="{{ $area->name }}" required>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ti ti-edit fs-16 me-1"></i>Edit
+                            </button>
+                        </form>
+                    @empty
+                        <p class="mb-0 text-muted">No areas saved yet.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createAreaModal" tabindex="-1" aria-labelledby="createAreaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{ route('areas.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createAreaModalLabel">Create New Area</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-0">
+                            <label>Area Name <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Area</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection

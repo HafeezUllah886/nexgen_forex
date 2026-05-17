@@ -6,7 +6,7 @@
         </div>
         <div class="page-btn">
             <a href="{{ route('users.create') }}" class="btn btn-added">
-                <img src="assets/img/icons/plus.svg" alt="img" class="me-1">Add New User
+                <i class="ti ti-plus fs-16 me-1"></i>Add New User
             </a>
         </div>
     </div>

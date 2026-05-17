@@ -30,7 +30,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label class="fw-bold">{{ __('account.area') }}</label>
-                        <p>{{ $account->area ?? '-' }}</p>
+                        <p>{{ $account->assignedArea?->name ?? $account->area ?? '-' }}</p>
                     </div>
                 </div>
                 <div class="col-lg-6">

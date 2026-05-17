@@ -39,7 +39,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>{{ __('account.area') }}</label>
-                            <input type="text" name="area" class="form-control" value="{{ $account->area }}">
+                            <select name="area_id" class="form-select">
+                                <option value="">Select Area</option>
+                                @foreach ($areas as $area)
+                                    <option value="{{ $area->id }}" {{ old('area_id', $account->area_id) == $area->id ? 'selected' : '' }}>
+                                        {{ $area->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
