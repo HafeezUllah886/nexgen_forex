@@ -17,4 +17,12 @@ class accounts extends Model
     {
         return $this->hasMany(Transactions::class, 'account_id');
     }
+
+    public function getBalance()
+    {
+        $creditSum = $this->transactions()->sum('credit');
+        $debitSum = $this->transactions()->sum('debit');
+
+        return $creditSum - $debitSum;
+    }
 }

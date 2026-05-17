@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\accounts;
 use App\Models\Area;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 
 class AccountsController extends Controller
@@ -14,6 +15,7 @@ class AccountsController extends Controller
     public function index()
     {
         $accounts = accounts::with('assignedArea')->orderBy('created_at', 'desc')->paginate(10);
+
         return view('accounts.index', compact('accounts'));
     }
 
@@ -23,6 +25,7 @@ class AccountsController extends Controller
     public function create()
     {
         $areas = Area::orderBy('name')->get();
+
         return view('accounts.create', compact('areas'));
     }
 
@@ -59,6 +62,7 @@ class AccountsController extends Controller
     public function show(accounts $account)
     {
         $account->load('assignedArea');
+
         return view('accounts.show', compact('account'));
     }
 
@@ -68,6 +72,7 @@ class AccountsController extends Controller
     public function edit(accounts $account)
     {
         $areas = Area::orderBy('name')->get();
+
         return view('accounts.edit', compact('account', 'areas'));
     }
 
@@ -77,7 +82,7 @@ class AccountsController extends Controller
     public function update(Request $request, accounts $account)
     {
         $request->validate([
-            'code' => 'required|string|max:255|unique:accounts,code,' . $account->id,
+            'code' => 'required|string|max:255|unique:accounts,code,'.$account->id,
             'name' => 'required|string|max:255',
             'area_id' => 'nullable|exists:areas,id',
             'address' => 'nullable|string',
@@ -113,12 +118,68 @@ class AccountsController extends Controller
      */
     public function getBalance(accounts $account)
     {
-        $creditSum = \DB::table('transactions')->where('account_id', $account->id)->sum('credit');
-        $debitSum = \DB::table('transactions')->where('account_id', $account->id)->sum('debit');
+        $creditSum = Transactions::where('account_id', $account->id)->sum('credit');
+        $debitSum = Transactions::where('account_id', $account->id)->sum('debit');
         $balance = $creditSum - $debitSum;
 
         return response()->json([
-            'balance' => number_format($balance, 2, '.', '')
+            'balance' => number_format($balance, 2, '.', ''),
         ]);
+    }
+
+    /**
+     * View detailed account statement with date range filtering.
+     */
+    public function statement(Request $request, accounts $account)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Calculate opening balances (all transactions before start_date)
+        $openingBalance = 0;
+        $openingRupees = 0;
+        $openingDollar = 0;
+        $openingAfghani = 0;
+
+        if ($startDate) {
+            $prevCredit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('credit');
+            $prevDebit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('debit');
+            $openingBalance = $prevCredit - $prevDebit;
+
+            $prevRupeesCredit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('rupees_credit');
+            $prevRupeesDebit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('rupees_debit');
+            $openingRupees = $prevRupeesCredit - $prevRupeesDebit;
+
+            $prevDollarCredit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('dollar_credit');
+            $prevDollarDebit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('dollar_debit');
+            $openingDollar = $prevDollarCredit - $prevDollarDebit;
+
+            $prevAfghaniCredit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('afghani_credit');
+            $prevAfghaniDebit = Transactions::where('account_id', $account->id)->where('date', '<', $startDate)->sum('afghani_debit');
+            $openingAfghani = $prevAfghaniCredit - $prevAfghaniDebit;
+        }
+
+        // Fetch filtered transactions chronologically
+        $query = Transactions::where('account_id', $account->id);
+
+        if ($startDate) {
+            $query->where('date', '>=', $startDate);
+        }
+        if ($endDate) {
+            $query->where('date', '<=', $endDate);
+        }
+
+        $transactions = $query->orderBy('date')->orderBy('id')->get();
+
+        return view('accounts.statement', compact(
+            'account',
+            'transactions',
+            'startDate',
+            'endDate',
+            'openingBalance',
+            'openingRupees',
+            'openingDollar',
+            'openingAfghani'
+        ));
     }
 }

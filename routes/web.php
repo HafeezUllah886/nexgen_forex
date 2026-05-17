@@ -34,9 +34,15 @@ Route::middleware(['auth', 'language'])->group(function () {
 
     Route::get('/transactions/history', [TransactionsController::class, 'index'])
         ->name('transactions.history');
+    Route::put('/transactions/{transaction}', [TransactionsController::class, 'update'])
+        ->name('transactions.update');
+    Route::delete('/transactions/{transaction}', [TransactionsController::class, 'destroy'])
+        ->name('transactions.destroy');
 
     Route::get('/accounts/{account}/balance', [AccountsController::class, 'getBalance'])
         ->name('accounts.balance');
+    Route::get('/accounts/{account}/statement', [AccountsController::class, 'statement'])
+        ->name('accounts.statement');
 
     // Accounts resource routes
     Route::resource('accounts', AccountsController::class)->names('accounts');

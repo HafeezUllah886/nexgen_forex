@@ -8,17 +8,31 @@ use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transactions::with('account')
-            ->orderBy('date', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
+        $query = Transactions::with('account');
 
-        return view('transactions.history', compact('transactions'));
+        // Apply filters
+        if ($request->filled('start_date')) {
+            $query->whereDate('date', '>=', $request->input('start_date'));
+        }
+        if ($request->filled('end_date')) {
+            $query->whereDate('date', '<=', $request->input('end_date'));
+        }
+        if ($request->filled('account_id')) {
+            $query->where('account_id', $request->input('account_id'));
+        }
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%' . $request->input('location') . '%');
+        }
+
+        $transactions = $query->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $accounts = accounts::all();
+
+        return view('transactions.history', compact('transactions', 'accounts'));
     }
 
     /**
@@ -122,16 +136,57 @@ class TransactionsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transactions $transactions)
+    public function update(Request $request, Transactions $transaction)
     {
-        //
+        $request->validate([
+            'date' => 'required|date',
+            'account_id' => 'required|exists:accounts,id',
+            'location' => 'nullable|string|max:255',
+            'number' => 'nullable|string|max:255',
+            'credit' => 'nullable|numeric',
+            'debit' => 'nullable|numeric',
+            'rupees_credit' => 'nullable|numeric',
+            'rupees_debit' => 'nullable|numeric',
+            'dollar_credit' => 'nullable|numeric',
+            'dollar_debit' => 'nullable|numeric',
+            'afghani_credit' => 'nullable|numeric',
+            'afghani_debit' => 'nullable|numeric',
+        ]);
+
+        $transaction->update([
+            'date' => $request->input('date'),
+            'account_id' => $request->input('account_id'),
+            'location' => $request->input('location'),
+            'number' => $request->input('number'),
+            'credit' => $request->input('credit') ?? 0,
+            'debit' => $request->input('debit') ?? 0,
+            'rupees_credit' => $request->input('rupees_credit') ?? 0,
+            'rupees_debit' => $request->input('rupees_debit') ?? 0,
+            'dollar_credit' => $request->input('dollar_credit') ?? 0,
+            'dollar_debit' => $request->input('dollar_debit') ?? 0,
+            'afghani_credit' => $request->input('afghani_credit') ?? 0,
+            'afghani_debit' => $request->input('afghani_debit') ?? 0,
+        ]);
+
+        return redirect()->route('transactions.history')->with('success', __('transaction.transaction_updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transactions $transactions)
+    public function destroy(Transactions $transaction)
     {
-        //
+        $request = request();
+        $request->validate([
+            'password' => 'required|string',
+        ]);
+
+        if (!\Hash::check($request->input('password'), auth()->user()->password)) {
+            return back()->withErrors(['password' => __('transaction.incorrect_password')]);
+        }
+
+        $transaction->delete();
+
+        return redirect()->route('transactions.history')->with('success', __('transaction.transaction_deleted'));
     }
 }

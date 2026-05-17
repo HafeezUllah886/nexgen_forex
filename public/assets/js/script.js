@@ -130,8 +130,8 @@ $(document).ready(function(){
 				sLengthMenu: 'Row Per Page _MENU_ Entries',
 				info: "_START_ - _END_ of _TOTAL_ items",
 				paginate: {
-					next: ' <i class=" fa fa-angle-right"></i>',
-					previous: '<i class="fa fa-angle-left"></i> '
+					next: ' <i class="ti ti-chevron-right"></i>',
+					previous: '<i class="ti ti-chevron-left"></i> '
 				},
 			 },
 			initComplete: (settings, json)=>{
