@@ -25,8 +25,11 @@
                 <li {{ request()->routeIs('dashboard') ? 'class=active' : '' }}>
                     <a href="{{ route('dashboard') }}"><i class="ti ti-layout-grid fs-16 me-2"></i><span>{{ __('messages.dashboard') }}</span></a>
                 </li>
-                <li {{ request()->routeIs('transactions.create') ? 'class=active' : '' }}>
-                    <a href="{{ route('transactions.create') }}"><i class="ti ti-plus fs-16 me-2"></i><span>{{ __('messages.create_transaction') }}</span></a>
+                <li>
+                    <a href="{{ route('transactions.create') }}" target="nexgen_create_transaction"
+                        onclick="window.open(this.href, 'nexgen_create_transaction', 'width=1600,height=900,noopener,noreferrer,scrollbars=yes,resizable=yes'); return false;">
+                        <i class="ti ti-plus fs-16 me-2"></i><span>{{ __('messages.create_transaction') }}</span>
+                    </a>
                 </li>
                 <li {{ request()->routeIs('transactions.history') ? 'class=active' : '' }}>
                     <a href="{{ route('transactions.history') }}"><i class="ti ti-history fs-16 me-2"></i><span>{{ __('messages.transaction_history') }}</span></a>

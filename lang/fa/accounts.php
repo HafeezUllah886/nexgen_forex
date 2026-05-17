@@ -12,4 +12,11 @@ return [
     'select_parent' => 'انتخاب والد',
     'public' => 'عمومی',
     'private' => 'خصوصی',
+    'cash' => 'نقدی',
+    'bank' => 'بانک',
+    'capital' => 'سرمایه',
+    'sales' => 'فروش',
+    'purchase' => 'خرید',
+    'expense' => 'هزینه',
+    'income' => 'درآمد',
 ];

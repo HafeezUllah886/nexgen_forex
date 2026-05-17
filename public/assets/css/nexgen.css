@@ -54,6 +54,23 @@
     margin-bottom: 0;
 }
 
+.transaction-create-table {
+    width: 100%;
+    min-width: 100%;
+    table-layout: fixed;
+}
+
+.transaction-create-table th,
+.transaction-create-table td {
+    white-space: nowrap;
+}
+
+.transaction-create-table .form-control,
+.transaction-create-table .form-select {
+    width: 100%;
+    min-width: 0;
+}
+
 @media (max-width: 767.98px) {
     .page-wrapper .content .card .card-body {
         padding: 1rem;

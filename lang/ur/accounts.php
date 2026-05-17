@@ -12,4 +12,11 @@ return [
     'select_parent' => 'پیرنٹ منتخب کریں',
     'public' => 'پبلک',
     'private' => 'پرائیویٹ',
+    'cash' => 'نقدی',
+    'bank' => 'بینک',
+    'capital' => 'سرمایہ',
+    'sales' => 'فروخت',
+    'purchase' => 'خریداری',
+    'expense' => 'اخراجات',
+    'income' => 'آمدنی',
 ];
