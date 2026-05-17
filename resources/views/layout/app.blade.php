@@ -105,6 +105,26 @@
         .mobile-user-menu .dropdown-menu a:hover {
             background: #f9f9f9;
         }
+
+        /* Fix: override theme's float positioning — place it inline in the header */
+        .header .mobile-user-menu {
+            position: absolute !important;
+            right: 12px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            float: none !important;
+            height: auto !important;
+            line-height: normal !important;
+            width: auto !important;
+            padding: 0 !important;
+            z-index: 99 !important;
+        }
+
+        body.layout-mode-rtl .header .mobile-user-menu {
+            right: auto !important;
+            left: 12px !important;
+        }
+
     </style>
 
 </head>
