@@ -18,4 +18,12 @@ return [
     'account_deleted' => 'Account deleted successfully.',
     'no_accounts' => 'No accounts found.',
     'account_info' => 'Account Information',
+    'manage_areas' => 'Manage Areas',
+    'select_area' => 'Select Area',
+    'create_area' => 'Create Area',
+    'create_new_area' => 'Create New Area',
+    'area_name' => 'Area Name',
+    'no_areas' => 'No areas saved yet.',
+    'area_created' => 'Area created successfully.',
+    'area_updated' => 'Area updated successfully.',
 ];

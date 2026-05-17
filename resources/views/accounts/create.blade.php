@@ -6,7 +6,7 @@
         </div>
         <div class="page-btn">
             <button type="button" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#manageAreasModal">
-                <i class="ti ti-map-pin fs-16 me-1"></i>Manage Areas
+                <i class="ti ti-map-pin fs-16 me-1"></i>{{ __('account.manage_areas') }}
             </button>
         </div>
     </div>
@@ -45,7 +45,7 @@
                             <label>{{ __('account.area') }}</label>
                             <div class="input-group">
                                 <select name="area_id" class="form-select">
-                                    <option value="">Select Area</option>
+                                    <option value="">{{ __('account.select_area') }}</option>
                                     @foreach ($areas as $area)
                                         <option value="{{ $area->id }}"
                                             {{ old('area_id') == $area->id ? 'selected' : '' }}>
@@ -54,7 +54,7 @@
                                     @endforeach
                                 </select>
                                 <button type="button" class="btn btn-primary btn-icon" data-bs-toggle="modal"
-                                    data-bs-target="#createAreaModal" title="Create Area">
+                                    data-bs-target="#createAreaModal" title="{{ __('account.create_area') }}">
                                     <i class="ti ti-plus fs-16"></i>
                                 </button>
                             </div>
@@ -83,10 +83,10 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="manageAreasModalLabel">Manage Areas</h5>
+                    <h5 class="modal-title" id="manageAreasModalLabel">{{ __('account.manage_areas') }}</h5>
                     <button type="button" class="btn btn-primary btn-sm ms-auto me-2" data-bs-toggle="modal"
                         data-bs-target="#createAreaModal">
-                        <i class="ti ti-plus fs-16 me-1"></i>Create Area
+                        <i class="ti ti-plus fs-16 me-1"></i>{{ __('account.create_area') }}
                     </button>
 
                 </div>
@@ -98,11 +98,11 @@
                             @method('PUT')
                             <input type="text" name="name" class="form-control" value="{{ $area->name }}" required>
                             <button type="submit" class="btn btn-primary">
-                                <i class="ti ti-edit fs-16 me-1"></i>Edit
+                                <i class="ti ti-edit fs-16 me-1"></i>{{ __('messages.edit') }}
                             </button>
                         </form>
                     @empty
-                        <p class="mb-0 text-muted">No areas saved yet.</p>
+                        <p class="mb-0 text-muted">{{ __('account.no_areas') }}</p>
                     @endforelse
                 </div>
             </div>
@@ -115,18 +115,18 @@
                 <form action="{{ route('areas.store') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="createAreaModalLabel">Create New Area</h5>
+                        <h5 class="modal-title" id="createAreaModalLabel">{{ __('account.create_new_area') }}</h5>
 
                     </div>
                     <div class="modal-body">
                         <div class="form-group mb-0">
-                            <label>Area Name <span class="text-danger">*</span></label>
+                            <label>{{ __('account.area_name') }} <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Create Area</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('account.create_area') }}</button>
                     </div>
                 </form>
             </div>

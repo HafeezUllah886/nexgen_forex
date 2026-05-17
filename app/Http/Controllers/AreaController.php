@@ -16,7 +16,7 @@ class AreaController extends Controller
 
         Area::create($request->only('name'));
 
-        return back()->with('success', 'Area created successfully.');
+        return back()->with('success', __('account.area_created'));
     }
 
     public function update(Request $request, Area $area)
@@ -28,6 +28,6 @@ class AreaController extends Controller
         $area->update($request->only('name'));
         accounts::where('area_id', $area->id)->update(['area' => $area->name]);
 
-        return back()->with('success', 'Area updated successfully.');
+        return back()->with('success', __('account.area_updated'));
     }
 }

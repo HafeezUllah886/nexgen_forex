@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <label>{{ __('account.area') }}</label>
                             <select name="area_id" class="form-select">
-                                <option value="">Select Area</option>
+                                <option value="">{{ __('account.select_area') }}</option>
                                 @foreach ($areas as $area)
                                     <option value="{{ $area->id }}" {{ old('area_id', $account->area_id) == $area->id ? 'selected' : '' }}>
                                         {{ $area->name }}
