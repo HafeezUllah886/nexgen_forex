@@ -22,10 +22,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/apple-touch-icon.png') }}">
 
     <!-- Bootstrap CSS - RTL or LTR based on direction -->
-    @if(session('direction') === 'rtl')
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
+    @if (session('direction') === 'rtl')
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
     @else
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     @endif
 
     <!-- Fontawesome CSS -->
@@ -63,29 +63,40 @@
                             <!-- Language Selector -->
                             <div class="language-selector mb-3">
                                 <div class="dropdown">
-                                    <button class="btn btn-outline-secondary dropdown-toggle w-100 d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @if(session('locale') == 'fa')
-                                            <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi" class="me-2 flag-icon"> فارسی
+                                    <button
+                                        class="btn btn-outline-secondary dropdown-toggle w-100 d-flex align-items-center"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @if (session('locale') == 'fa')
+                                            <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi"
+                                                class="me-2 flag-icon"> فارسی
                                         @elseif(session('locale') == 'ur')
-                                            <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Urdu" class="me-2 flag-icon"> اردو
+                                            <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Urdu"
+                                                class="me-2 flag-icon"> اردو
                                         @else
-                                            <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English" class="me-2 flag-icon"> English
+                                            <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English"
+                                                class="me-2 flag-icon"> English
                                         @endif
                                     </button>
                                     <ul class="dropdown-menu w-100">
                                         <li>
-                                            <a class="dropdown-item language-option d-flex align-items-center" href="javascript:void(0);" data-lang="en">
-                                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English" class="me-2 flag-icon"> English
+                                            <a class="dropdown-item language-option d-flex align-items-center"
+                                                href="javascript:void(0);" data-lang="en">
+                                                <img src="{{ asset('assets/img/flags/us-flag.svg') }}" alt="English"
+                                                    class="me-2 flag-icon"> English
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item language-option d-flex align-items-center" href="javascript:void(0);" data-lang="ur">
-                                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}" alt="Urdu" class="me-2 flag-icon"> اردو
+                                            <a class="dropdown-item language-option d-flex align-items-center"
+                                                href="javascript:void(0);" data-lang="ur">
+                                                <img src="{{ asset('assets/img/flags/pakistan-flag.svg') }}"
+                                                    alt="Urdu" class="me-2 flag-icon"> اردو
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item language-option d-flex align-items-center" href="javascript:void(0);" data-lang="fa">
-                                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi" class="me-2 flag-icon"> فارسی
+                                            <a class="dropdown-item language-option d-flex align-items-center"
+                                                href="javascript:void(0);" data-lang="fa">
+                                                <img src="{{ asset('assets/img/flags/iran-flag.svg') }}" alt="Farsi"
+                                                    class="me-2 flag-icon"> فارسی
                                             </a>
                                         </li>
                                     </ul>
@@ -100,16 +111,16 @@
                                 }
                             </style>
 
-                            @if($errors->any())
+                            @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul class="mb-0">
-                                        @foreach($errors->all() as $error)
+                                        @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
                             @endif
-                            @if(session('error'))
+                            @if (session('error'))
                                 <div class="alert alert-danger">
                                     {{ session('error') }}
                                 </div>
@@ -123,24 +134,29 @@
                                             <h4>{{ __('auth.access_panel') }}</h4>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">{{ __('auth.username') }} <span class="text-danger">*</span></label>
+                                            <label class="form-label">{{ __('auth.username') }} <span
+                                                    class="text-danger">*</span></label>
                                             <div class="input-group">
-                                                <input type="text" name="username" value="{{ old('username') }}" class="form-control border-end-0" required>
+                                                <input type="text" name="username" value="{{ old('username') }}"
+                                                    class="form-control border-end-0" required>
                                                 <span class="input-group-text border-start-0">
                                                     <i class="ti ti-user"></i>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">{{ __('auth.password') }} <span class="text-danger">*</span></label>
+                                            <label class="form-label">{{ __('auth.password') }} <span
+                                                    class="text-danger">*</span></label>
                                             <div class="pass-group">
-                                                <input type="password" name="password" class="pass-input form-control" required>
+                                                <input type="password" name="password"
+                                                    class="pass-input form-control" required>
                                                 <span class="ti toggle-password ti-eye-off text-gray-9"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-login">
-                                            <button type="submit" class="btn btn-primary w-100">{{ __('auth.login') }}</button>
+                                            <button type="submit"
+                                                class="btn btn-primary w-100">{{ __('auth.login') }}</button>
                                         </div>
 
                                     </div>
@@ -148,7 +164,8 @@
                             </form>
                         </div>
                         <div class="my-4 d-flex justify-content-center align-items-center copyright-text">
-                            <p>Copyright &copy; 2026 NextGen Forex</p>
+                            <p>Copyright &copy; {{ date('Y') }} NexGen Forex All Rights Reserved | Developed By <a
+                                    href="https://nexgenpakistan.com" target="_blank">NexGen Pakistan</a> </p>
                         </div>
                     </div>
                 </div>
@@ -179,23 +196,25 @@
                     e.preventDefault();
                     const lang = this.getAttribute('data-lang');
 
-                    fetch('{{ route("language.switch") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({ lang: lang })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            document.documentElement.setAttribute('dir', data.direction);
-                            document.documentElement.setAttribute('lang', lang);
-                            location.reload();
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+                    fetch('{{ route('language.switch') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                lang: lang
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.documentElement.setAttribute('dir', data.direction);
+                                document.documentElement.setAttribute('lang', lang);
+                                location.reload();
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
                 });
             });
         });
