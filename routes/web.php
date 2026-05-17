@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -22,32 +27,31 @@ Route::middleware(['auth', 'language'])->group(function () {
         return view('dashboard.index');
     })->name('dashboard');
 
-    Route::get('/transactions/create', function () {
-        return view('transactions.create');
-    })->name('transactions.create');
+    Route::get('/transactions/create', [TransactionsController::class, 'create'])
+        ->name('transactions.create');
 
     Route::get('/transactions/history', function () {
         return view('transactions.history');
     })->name('transactions.history');
 
     // Accounts resource routes
-    Route::resource('accounts', App\Http\Controllers\AccountsController::class)->names('accounts');
-    Route::post('/areas', [App\Http\Controllers\AreaController::class, 'store'])->name('areas.store');
-    Route::put('/areas/{area}', [App\Http\Controllers\AreaController::class, 'update'])->name('areas.update');
+    Route::resource('accounts', AccountsController::class)->names('accounts');
+    Route::post('/areas', [AreaController::class, 'store'])->name('areas.store');
+    Route::put('/areas/{area}', [AreaController::class, 'update'])->name('areas.update');
 
     Route::get('/reports', function () {
         return view('reports.index');
     })->name('reports');
 
-    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
-    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('users.show');
-    Route::get('/users/{user}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
