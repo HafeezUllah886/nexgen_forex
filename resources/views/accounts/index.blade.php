@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($accounts as $account)
+                        @foreach($accounts as $account)
                             <tr>
                                 <td>{{ $account->id }}</td>
                                 <td>{{ $account->code }}</td>
@@ -70,12 +70,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center">{{ __('account.no_accounts') }}</td>
-                            </tr>
-                        @endforelse
-
+                        @endforeach
                     </tbody>
                 </table>
             </div>
