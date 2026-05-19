@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($accounts as $account)
+                        @foreach ($accounts as $account)
                             <tr>
                                 <td>{{ $account->id }}</td>
                                 <td>{{ $account->code }}</td>
@@ -61,9 +61,9 @@
                                             </li>
                                             <li>
                                                 <a class="dropdown-item view-statement-btn" href="javascript:void(0);"
-                                                    data-id="{{ $account->id }}"
-                                                    data-name="{{ $account->name }}">
-                                                    <i class="ti ti-file-text me-1 text-warning"></i> {{ __('account.statement') }}
+                                                    data-id="{{ $account->id }}" data-name="{{ $account->name }}">
+                                                    <i class="ti ti-file-text me-1 text-warning"></i>
+                                                    {{ __('account.statement') }}
                                                 </a>
                                             </li>
                                         </ul>
@@ -85,7 +85,9 @@
                     <h5 class="modal-title" id="statementModalLabel">
                         <i class="ti ti-file-text me-1 text-warning"></i>{{ __('account.account_statement') }}
                     </h5>
-                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close" style="border: none; background: transparent; font-size: 1.25rem; color: #6c757d; transition: color 0.2s; outline: none; box-shadow: none;" onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#6c757d'">
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"
+                        style="border: none; background: transparent; font-size: 1.25rem; color: #6c757d; transition: color 0.2s; outline: none; box-shadow: none;"
+                        onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#6c757d'">
                         <i class="ti ti-x"></i>
                     </button>
                 </div>
@@ -97,17 +99,22 @@
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="statement_start_date" class="form-label fw-bold">{{ __('transaction.date_from') }}</label>
-                                <input type="date" name="start_date" id="statement_start_date" class="form-control">
+                                <label for="statement_start_date"
+                                    class="form-label fw-bold">{{ __('transaction.date_from') }}</label>
+                                <input type="date" name="start_date" id="statement_start_date"
+                                    value="{{ firstDateofCurrentMonth() }}" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="statement_end_date" class="form-label fw-bold">{{ __('transaction.date_to') }}</label>
-                                <input type="date" name="end_date" id="statement_end_date" class="form-control">
+                                <label for="statement_end_date"
+                                    class="form-label fw-bold">{{ __('transaction.date_to') }}</label>
+                                <input type="date" name="end_date" value="{{ date('Y-m-d') }}" id="statement_end_date"
+                                    class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-end gap-2" style="border-top: 1px solid #dee2e6;">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                        <button type="button" class="btn btn-secondary me-2"
+                            data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                         <button type="submit" class="btn btn-warning fw-bold text-dark m-0">
                             <i class="ti ti-eye me-1"></i>{{ __('account.generate_statement') }}
                         </button>
@@ -129,10 +136,6 @@
 
                 // Set account name
                 $('#statement_account_name').val(name);
-
-                // Clear previous dates
-                $('#statement_start_date').val('');
-                $('#statement_end_date').val('');
 
                 // Open modal
                 $('#statementModal').modal('show');

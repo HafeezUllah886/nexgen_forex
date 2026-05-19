@@ -54,9 +54,9 @@
                     <div class="col-lg-5 mx-auto">
                         <div class="login-content user-login">
                             <div class="login-logo">
-                                <img src="{{ asset('assets/img/logo.svg') }}" alt="img">
+                                <img src="{{ asset('assets/img/icon.png') }}" alt="img">
                                 <a href="index.html" class="login-logo logo-white">
-                                    <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Img">
+                                    <img src="{{ asset('assets/img/icon.png') }}" alt="Img">
                                 </a>
                             </div>
 

@@ -44,4 +44,7 @@ return [
     'dollar_usd' => 'ڈالر (USD)',
     'afghani_afn' => 'افغانی (AFN)',
     'bal' => 'بیلنس',
+    'generated_on' => 'تیار کردہ',
+    'ledger_balances_summary' => 'لیجر بیلنس کا خلاصہ',
+    'base_currency' => 'بنیادی کرنسی',
 ];

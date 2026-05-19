@@ -96,6 +96,10 @@
                             All-Time
                         @endif
                     </p>
+                    <p class="text-muted m-0 fs-13">
+                        <strong>{{ __('account.generated_on') }}:</strong>
+                        {{ date('Y-m-d') }}
+                    </p>
                 </div>
             </div>
 
@@ -123,7 +127,7 @@
                     </table>
                 </div>
                 <div class="col-md-6 mt-3 mt-md-0">
-                    <h6 class="fw-bold text-secondary mb-2">Ledger Balances Summary</h6>
+                    <h6 class="fw-bold text-secondary mb-2">{{ __('account.ledger_balances_summary') }}</h6>
                     <div class="row g-2">
                         <div class="col-6">
                             <div class="border rounded p-2 text-center bg-light">
@@ -155,25 +159,32 @@
                             <th rowspan="2" style="width: 60px;">ID</th>
                             <th rowspan="2" style="width: 100px;">{{ __('transaction.date') }}</th>
                             <th rowspan="2">{{ __('transaction.location') }} / {{ __('transaction.number') }}</th>
-                            <th colspan="3" class="text-dark bg-opacity-10 bg-secondary">Base Currency</th>
-                            <th colspan="2" class="text-success bg-opacity-10 bg-success">Rupees (PKR)</th>
-                            <th colspan="2" class="text-primary bg-opacity-10 bg-primary">Dollar (USD)</th>
-                            <th colspan="2" class="text-danger bg-opacity-10 bg-danger">Afghani (AFN)</th>
+                            <th rowspan="2">{{ __('transaction.description') }}</th>
+                            <th colspan="3" class="text-dark bg-opacity-10 bg-secondary">
+                                {{ __('account.base_currency') }}
+                            </th>
+                            <th colspan="2" class="text-success bg-opacity-10 bg-success">{{ __('transaction.rupees') }}
+                                (PKR)</th>
+                            <th colspan="2" class="text-primary bg-opacity-10 bg-primary">{{ __('transaction.dollar') }}
+                                (USD)
+                            </th>
+                            <th colspan="2" class="text-danger bg-opacity-10 bg-danger">
+                                {{ __('transaction.afghani') }} (AFN)</th>
                         </tr>
                         <tr class="text-center">
                             <!-- Base -->
-                            <th class="text-success">Credit</th>
-                            <th class="text-danger">Debit</th>
-                            <th>Balance</th>
+                            <th class="text-success">{{ __('transaction.credit') }}</th>
+                            <th class="text-danger">{{ __('transaction.debit') }}</th>
+                            <th>{{ __('transaction.balance') }}</th>
                             <!-- Rupees -->
-                            <th class="text-success">Cr</th>
-                            <th class="text-danger">Dr</th>
+                            <th class="text-success">{{ __('transaction.credit') }}</th>
+                            <th class="text-danger">{{ __('transaction.debit') }}</th>
                             <!-- Dollar -->
-                            <th class="text-success">Cr</th>
-                            <th class="text-danger">Dr</th>
+                            <th class="text-success">{{ __('transaction.credit') }}</th>
+                            <th class="text-danger">{{ __('transaction.debit') }}</th>
                             <!-- Afghani -->
-                            <th class="text-success">Cr</th>
-                            <th class="text-danger">Dr</th>
+                            <th class="text-success">{{ __('transaction.credit') }}</th>
+                            <th class="text-danger">{{ __('transaction.debit') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -238,6 +249,7 @@
                                         -
                                     @endif
                                 </td>
+                                <td>{{ $transaction->description ?? '-' }}</td>
                                 <!-- Base -->
                                 <td class="text-end text-success font-monospace">
                                     {{ number_format($transaction->credit, 2) }}</td>
@@ -277,7 +289,8 @@
                                 <!-- Rupees -->
                                 <td class="text-end text-success font-monospace">{{ number_format($totalRupeesCr, 2) }}
                                 </td>
-                                <td class="text-end text-danger font-monospace">{{ number_format($totalRupeesDr, 2) }}</td>
+                                <td class="text-end text-danger font-monospace">{{ number_format($totalRupeesDr, 2) }}
+                                </td>
                                 <!-- Dollar -->
                                 <td class="text-end text-success font-monospace">{{ number_format($totalDollarCr, 2) }}
                                 </td>

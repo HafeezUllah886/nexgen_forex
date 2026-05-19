@@ -23,7 +23,7 @@ class TransactionsController extends Controller
             $query->where('account_id', $request->input('account_id'));
         }
         if ($request->filled('location')) {
-            $query->where('location', 'like', '%' . $request->input('location') . '%');
+            $query->where('location', 'like', '%'.$request->input('location').'%');
         }
 
         $transactions = $query->orderBy('date', 'desc')
@@ -89,11 +89,12 @@ class TransactionsController extends Controller
         $dollarDebits = $request->input('dollar_debit');
         $afghaniCredits = $request->input('afghani_credit');
         $afghaniDebits = $request->input('afghani_debit');
+        $descriptions = $request->input('description');
 
         \DB::transaction(function () use (
             $dates, $accounts, $locations, $numbers, $credits, $debits,
             $rupeesCredits, $rupeesDebits, $dollarCredits, $dollarDebits,
-            $afghaniCredits, $afghaniDebits
+            $afghaniCredits, $afghaniDebits, $descriptions
         ) {
             foreach ($accounts as $index => $accountId) {
                 Transactions::create([
@@ -102,6 +103,7 @@ class TransactionsController extends Controller
                     'date' => $dates[$index],
                     'location' => $locations[$index] ?? null,
                     'number' => $numbers[$index] ?? null,
+                    'description' => $descriptions[$index] ?? null,
                     'credit' => $credits[$index] ?? 0,
                     'debit' => $debits[$index] ?? 0,
                     'rupees_credit' => $rupeesCredits[$index] ?? 0,
@@ -166,6 +168,7 @@ class TransactionsController extends Controller
             'dollar_debit' => $request->input('dollar_debit') ?? 0,
             'afghani_credit' => $request->input('afghani_credit') ?? 0,
             'afghani_debit' => $request->input('afghani_debit') ?? 0,
+            'description' => $request->input('description') ?? null,
         ]);
 
         return redirect()->route('transactions.history')->with('success', __('transaction.transaction_updated'));
@@ -181,7 +184,7 @@ class TransactionsController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (!\Hash::check($request->input('password'), auth()->user()->password)) {
+        if (! \Hash::check($request->input('password'), auth()->user()->password)) {
             return back()->withErrors(['password' => __('transaction.incorrect_password')]);
         }
 

@@ -44,4 +44,7 @@ return [
     'dollar_usd' => 'دلار (USD)',
     'afghani_afn' => 'افغانی (AFN)',
     'bal' => 'تراز',
+    'generated_on' => 'ایجاد شده در',
+    'ledger_balances_summary' => 'خلاصه تراز دفتر کل',
+    'base_currency' => 'ارز پایه',
 ];

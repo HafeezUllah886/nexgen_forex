@@ -44,4 +44,7 @@ return [
     'dollar_usd' => 'Dollar (USD)',
     'afghani_afn' => 'Afghani (AFN)',
     'bal' => 'Bal',
+    'generated_on' => 'Generated On',
+    'ledger_balances_summary' => 'Ledger Balances Summary',
+    'base_currency' => 'Base Currency',
 ];

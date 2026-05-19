@@ -124,7 +124,6 @@
             right: auto !important;
             left: 12px !important;
         }
-
     </style>
 
 </head>
@@ -143,16 +142,16 @@
                 <!-- Logo -->
                 <div class="header-left active">
                     <a href="index.html" class="logo logo-normal">
-                        <img src="{{ asset('assets/img/logo.svg') }}" alt="Img">
+                        <img src="{{ asset('assets/img/icon_landscap.png') }}" alt="Img">
                     </a>
                     <a href="index.html" class="logo logo-white">
-                        <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Img">
+                        <img src="{{ asset('assets/img/icon_landscap.png') }}" alt="Img">
                     </a>
                     <a href="index.html" class="logo-small">
-                        <img src="{{ asset('assets/img/logo-small.png') }}" alt="Img">
+                        <img src="{{ asset('assets/img/icon_landscap.png') }}" alt="Img">
                     </a>
                     <a href="index.html" class="logo-small-white">
-                        <img src="{{ asset('assets/img/logo-small-white.png') }}" alt="Img">
+                        <img src="{{ asset('assets/img/icon_landscap.png') }}" alt="Img">
                     </a>
                 </div>
                 <!-- /Logo -->
