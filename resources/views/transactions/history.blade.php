@@ -37,11 +37,11 @@
                     <form action="{{ route('transactions.history') }}" method="GET" class="row g-3">
                         <div class="col-md-3">
                             <label class="form-label fw-bold">{{ __('transaction.date_from') }}</label>
-                            <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
+                            <input type="date" name="start_date" class="form-control" value="{{ $startDate }}">
                         </div>
                         <div class="col-md-3">
                             <label class="form-label fw-bold">{{ __('transaction.date_to') }}</label>
-                            <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+                            <input type="date" name="end_date" class="form-control" value="{{ $endDate }}">
                         </div>
                         <div class="col-md-3">
                             <label class="form-label fw-bold">{{ __('transaction.account') }}</label>
@@ -180,8 +180,7 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
                                                 <a class="dropdown-item edit-transaction-btn" href="javascript:void(0);"
-                                                    data-id="{{ $transaction->id }}"
-                                                    data-date="{{ $transaction->date }}"
+                                                    data-id="{{ $transaction->id }}" data-date="{{ $transaction->date }}"
                                                     data-account_id="{{ $transaction->account_id }}"
                                                     data-location="{{ $transaction->location }}"
                                                     data-number="{{ $transaction->number }}"
@@ -192,14 +191,16 @@
                                                     data-dollar_credit="{{ $transaction->dollar_credit }}"
                                                     data-dollar_debit="{{ $transaction->dollar_debit }}"
                                                     data-afghani_credit="{{ $transaction->afghani_credit }}"
+                                                    data-description="{{ $transaction->description }}"
                                                     data-afghani_debit="{{ $transaction->afghani_debit }}">
                                                     <i class="ti ti-edit me-1 text-primary"></i> {{ __('messages.edit') }}
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item delete-transaction-btn"
-                                                    href="javascript:void(0);" data-id="{{ $transaction->id }}">
-                                                    <i class="ti ti-trash me-1 text-danger"></i> {{ __('messages.delete') }}
+                                                <a class="dropdown-item delete-transaction-btn" href="javascript:void(0);"
+                                                    data-id="{{ $transaction->id }}">
+                                                    <i class="ti ti-trash me-1 text-danger"></i>
+                                                    {{ __('messages.delete') }}
                                                 </a>
                                             </li>
                                         </ul>
@@ -256,7 +257,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editTransactionModalLabel">{{ __('transaction.edit_transaction') }}</h5>
-                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close" style="border: none; background: transparent; font-size: 1.25rem; color: #6c757d; transition: color 0.2s; outline: none; box-shadow: none;" onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#6c757d'">
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"
+                        style="border: none; background: transparent; font-size: 1.25rem; color: #6c757d; transition: color 0.2s; outline: none; box-shadow: none;"
+                        onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#6c757d'">
                         <i class="ti ti-x"></i>
                     </button>
                 </div>
@@ -270,7 +273,8 @@
                                 <input type="date" name="date" id="edit_date" class="form-control" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_account_id" class="form-label fw-bold">{{ __('transaction.account') }}</label>
+                                <label for="edit_account_id"
+                                    class="form-label fw-bold">{{ __('transaction.account') }}</label>
                                 <select name="account_id" id="edit_account_id" class="form-select edit-account-select">
                                     @foreach ($accounts as $account)
                                         @php
@@ -296,22 +300,31 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_location" class="form-label fw-bold">{{ __('transaction.location') }}</label>
+                                <label for="edit_location"
+                                    class="form-label fw-bold">{{ __('transaction.location') }}</label>
                                 <input type="text" name="location" id="edit_location" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_number" class="form-label fw-bold">{{ __('transaction.number') }}</label>
+                                <label for="edit_number"
+                                    class="form-label fw-bold">{{ __('transaction.number') }}</label>
                                 <input type="text" name="number" id="edit_number" class="form-control">
                             </div>
                             <div class="col-md-6">
                                 <label for="edit_credit"
                                     class="form-label fw-bold text-success">{{ __('transaction.credit') }}</label>
-                                <input type="number" step="0.01" name="credit" id="edit_credit" class="form-control">
+                                <input type="number" step="0.01" name="credit" id="edit_credit"
+                                    class="form-control">
                             </div>
                             <div class="col-md-6">
                                 <label for="edit_debit"
                                     class="form-label fw-bold text-danger">{{ __('transaction.debit') }}</label>
-                                <input type="number" step="0.01" name="debit" id="edit_debit" class="form-control">
+                                <input type="number" step="0.01" name="debit" id="edit_debit"
+                                    class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="edit_description"
+                                    class="form-label fw-bold">{{ __('transaction.description') }}</label>
+                                <textarea name="description" id="edit_description" class="form-control" rows="3"></textarea>
                             </div>
 
                             <div class="col-12 border-top pt-3 mt-3">
@@ -319,39 +332,46 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="edit_rupees_credit" class="form-label text-success">{{ __('transaction.rupees') }} (Cr)</label>
+                                <label for="edit_rupees_credit"
+                                    class="form-label text-success">{{ __('transaction.rupees') }} (Cr)</label>
                                 <input type="number" step="0.01" name="rupees_credit" id="edit_rupees_credit"
                                     class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_rupees_debit" class="form-label text-danger">{{ __('transaction.rupees') }} (Dr)</label>
+                                <label for="edit_rupees_debit"
+                                    class="form-label text-danger">{{ __('transaction.rupees') }} (Dr)</label>
                                 <input type="number" step="0.01" name="rupees_debit" id="edit_rupees_debit"
                                     class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_dollar_credit" class="form-label text-success">{{ __('transaction.dollar') }} (Cr)</label>
+                                <label for="edit_dollar_credit"
+                                    class="form-label text-success">{{ __('transaction.dollar') }} (Cr)</label>
                                 <input type="number" step="0.01" name="dollar_credit" id="edit_dollar_credit"
                                     class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_dollar_debit" class="form-label text-danger">{{ __('transaction.dollar') }} (Dr)</label>
+                                <label for="edit_dollar_debit"
+                                    class="form-label text-danger">{{ __('transaction.dollar') }} (Dr)</label>
                                 <input type="number" step="0.01" name="dollar_debit" id="edit_dollar_debit"
                                     class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_afghani_credit" class="form-label text-success">{{ __('transaction.afghani') }} (Cr)</label>
+                                <label for="edit_afghani_credit"
+                                    class="form-label text-success">{{ __('transaction.afghani') }} (Cr)</label>
                                 <input type="number" step="0.01" name="afghani_credit" id="edit_afghani_credit"
                                     class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label for="edit_afghani_debit" class="form-label text-danger">{{ __('transaction.afghani') }} (Dr)</label>
+                                <label for="edit_afghani_debit"
+                                    class="form-label text-danger">{{ __('transaction.afghani') }} (Dr)</label>
                                 <input type="number" step="0.01" name="afghani_debit" id="edit_afghani_debit"
                                     class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-end gap-2" style="border-top: 1px solid #dee2e6;">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                        <button type="button" class="btn btn-secondary me-2"
+                            data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                         <button type="submit" class="btn btn-primary m-0">{{ __('transaction.save_changes') }}</button>
                     </div>
                 </form>
@@ -368,7 +388,9 @@
                     <h5 class="modal-title text-danger" id="deleteTransactionModalLabel">
                         <i class="ti ti-alert-triangle me-1"></i>{{ __('transaction.confirm_deletion') }}
                     </h5>
-                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close" style="border: none; background: transparent; font-size: 1.25rem; color: #6c757d; transition: color 0.2s; outline: none; box-shadow: none;" onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#6c757d'">
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"
+                        style="border: none; background: transparent; font-size: 1.25rem; color: #6c757d; transition: color 0.2s; outline: none; box-shadow: none;"
+                        onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#6c757d'">
                         <i class="ti ti-x"></i>
                     </button>
                 </div>
@@ -378,13 +400,15 @@
                     <div class="modal-body text-center">
                         <p class="mb-4 text-dark">{{ __('transaction.delete_confirmation_text') }}</p>
                         <div class="mb-3 text-start">
-                            <label for="delete_password" class="form-label fw-bold text-dark">{{ __('transaction.enter_password_to_confirm') }}</label>
+                            <label for="delete_password"
+                                class="form-label fw-bold text-dark">{{ __('transaction.enter_password_to_confirm') }}</label>
                             <input type="password" name="password" id="delete_password" class="form-control" required
                                 placeholder="{{ __('transaction.enter_password') }}">
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-end gap-2" style="border-top: 1px solid #dee2e6;">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                        <button type="button" class="btn btn-secondary me-2"
+                            data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                         <button type="submit" class="btn btn-danger m-0">{{ __('transaction.confirm_delete') }}</button>
                     </div>
                 </form>
@@ -422,6 +446,7 @@
                 const dollarDebit = $(this).data('dollar_debit');
                 const afghaniCredit = $(this).data('afghani_credit');
                 const afghaniDebit = $(this).data('afghani_debit');
+                const description = $(this).data('description');
 
                 // Set Form action
                 $('#editTransactionForm').attr('action', `/transactions/${id}`);
@@ -439,6 +464,7 @@
                 $('#edit_dollar_debit').val(dollarDebit);
                 $('#edit_afghani_credit').val(afghaniCredit);
                 $('#edit_afghani_debit').val(afghaniDebit);
+                $('#edit_description').val(description);
 
                 // Open Modal
                 $('#editTransactionModal').modal('show');

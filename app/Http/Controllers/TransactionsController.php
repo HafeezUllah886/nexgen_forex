@@ -10,14 +10,21 @@ class TransactionsController extends Controller
 {
     public function index(Request $request)
     {
+        $startDate = $request->input('start_date') ?? firstDateofCurrentMonth();
+        $endDate = $request->input('end_date') ?? date('Y-m-d');
+
+        if ($startDate && ! $endDate) {
+            $endDate = $startDate;
+        }
+
         $query = Transactions::with('account');
 
         // Apply filters
-        if ($request->filled('start_date')) {
-            $query->whereDate('date', '>=', $request->input('start_date'));
+        if ($startDate) {
+            $query->whereDate('date', '>=', $startDate);
         }
-        if ($request->filled('end_date')) {
-            $query->whereDate('date', '<=', $request->input('end_date'));
+        if ($endDate) {
+            $query->whereDate('date', '<=', $endDate);
         }
         if ($request->filled('account_id')) {
             $query->where('account_id', $request->input('account_id'));
@@ -32,7 +39,7 @@ class TransactionsController extends Controller
 
         $accounts = accounts::all();
 
-        return view('transactions.history', compact('transactions', 'accounts'));
+        return view('transactions.history', compact('transactions', 'accounts', 'startDate', 'endDate'));
     }
 
     /**
