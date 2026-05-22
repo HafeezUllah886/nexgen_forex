@@ -43,4 +43,5 @@ return [
     'pending' => 'زیر التواء',
     'completed' => 'مکمل',
     'cancelled' => 'منسوخ',
+    'print' => 'پرنٹ کریں',
 ];

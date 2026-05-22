@@ -43,4 +43,5 @@ return [
     'pending' => 'در انتظار',
     'completed' => 'تکمیل شده',
     'cancelled' => 'لغو شده',
+    'print' => 'چاپ',
 ];

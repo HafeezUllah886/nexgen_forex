@@ -43,4 +43,5 @@ return [
     'pending' => 'Pending',
     'completed' => 'Completed',
     'cancelled' => 'Cancelled',
+    'print' => 'Print',
 ];

@@ -60,8 +60,6 @@ class TransactionsController extends Controller
         $request->validate([
             'date' => 'required|array',
             'date.*' => 'required|date',
-            'account' => 'required|array',
-            'account.*' => 'required|exists:accounts,id',
             'location' => 'nullable|array',
             'location.*' => 'nullable|string|max:255',
             'number' => 'nullable|array',
@@ -104,6 +102,12 @@ class TransactionsController extends Controller
             $afghaniCredits, $afghaniDebits, $descriptions
         ) {
             foreach ($accounts as $index => $accountId) {
+                if ($credits[$index] == null && $debits[$index] == null) {
+                    continue;
+                }
+                if ($accountId == null) {
+                    continue;
+                }
                 Transactions::create([
                     'account_id' => $accountId,
                     'user_id' => auth()->id(),

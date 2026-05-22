@@ -84,7 +84,7 @@
         </div>
         <div class="page-btn">
             <button type="button" class="btn btn-added" onclick="add_row()">
-                <i class="ti ti-plus fs-16 me-1"></i>{{ __('transaction.add_row') }}
+                <i class="ti ti-plus fs-16 me-1"></i>{{ __('transaction.add_row') }} (F2)
             </button>
         </div>
     </div>
@@ -135,6 +135,7 @@
                                         id="date_0" class="form-control p-1 h-100"></td>
                                 <td class="p-1" data-label="{{ __('transaction.account') }}"><select name="account[]" id="account_0"
                                         class="form-select p-1 h-100 account-select">
+                                        <option value="">-- Select --</option>
                                         @foreach ($accounts as $account)
                                             @php
                                                 $words = explode(' ', $account->name);
@@ -154,7 +155,7 @@
                                                         ? "{$account->name} - {$translatedName}"
                                                         : $account->name;
                                             @endphp
-                                            <option value="{{ $account->id }}">{{ $displayText }}</option>
+                                            <option value="{{ $account->id }}">{{ $account->code }} - {{ $displayText }}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -248,6 +249,7 @@
                             <td class="p-1" data-label="{{ __('transaction.date') }}"><input type="date" name="date[]" value="{{ date('Y-m-d') }}"
                                     id="date_${rowIndex}" class="form-control p-1 h-100"></td>
                             <td class="p-1" data-label="{{ __('transaction.account') }}"><select name="account[]" id="account_${rowIndex}" class="form-select p-1 h-100 account-select">
+                                    <option value="">-- Select --</option>
                                     @foreach ($accounts as $account)
                                         @php
                                             $words = explode(' ', $account->name);
@@ -264,7 +266,7 @@
                                             $translatedName = implode(' ', $translatedWords);
                                             $displayText = $translatedName !== $account->name ? "{$account->name} - {$translatedName}" : $account->name;
                                         @endphp
-                                        <option value="{{ $account->id }}">{{ $displayText }}</option>
+                                        <option value="{{ $account->id }}"> {{ $account->code }} - {{ $displayText }}</option>
                                     @endforeach
                                 </select>
                             </td>
@@ -304,12 +306,37 @@
             // Trigger dynamic balance load
             $('#account_' + rowIndex).trigger('change');
 
+            // Automatically focus the date input of the new row
+            $('#date_' + rowIndex).focus();
+
             rowIndex++;
         }
 
         $(document).on('click', '.removeBtn', function() {
             var index = $(this).data('index');
             $('#trRow_' + index).remove();
+        });
+
+        // --- Keyboard Shortcuts for Transaction Entry ---
+
+        // 1. Global Hotkeys: F2 or Insert key to add new row
+        $(document).on('keydown', function(e) {
+            if (e.key === 'F2' || e.key === 'Insert') {
+                e.preventDefault();
+                add_row();
+            }
+        });
+
+        // 2. Continuous Entry: Pressing Tab on the last field of the last row automatically appends a new row and focuses it
+        $(document).on('keydown', 'input[name="afghani_debit[]"]', function(e) {
+            if (e.key === 'Tab' && !e.shiftKey) {
+                let currentRow = $(this).closest('tr');
+                let lastRow = $('#tbody tr').last();
+                if (currentRow.is(lastRow)) {
+                    e.preventDefault();
+                    add_row();
+                }
+            }
         });
     </script>
 @endsection

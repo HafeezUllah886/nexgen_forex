@@ -1,11 +1,149 @@
 @extends('layout.app')
 
 @section('content')
+    <style>
+        @media print {
+            /* Hide UI controls, headers, sidebar, filters, and actions */
+            .header,
+            .sidebar,
+            .sidebar-overlay,
+            .copyright-footer,
+            .page-header,
+            .card-header,
+            .whirly-loader,
+            #global-loader,
+            .dataTables_length,
+            .dataTables_filter,
+            .dataTables_info,
+            .dataTables_paginate,
+            .dt-buttons,
+            .dataTables_wrapper .row:first-child,
+            .dataTables_wrapper .row:last-child,
+            td:last-child,
+            th:last-child {
+                display: none !important;
+            }
+
+            /* Reset margins and layout */
+            body, html {
+                background: #fff !important;
+                color: #000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                font-size: 11px !important;
+            }
+
+            .page-wrapper {
+                margin: 0 !important;
+                padding: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+            }
+
+            .content {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .card {
+                border: none !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .card-body {
+                padding: 0 !important;
+            }
+
+            /* Table formatting */
+            .table-responsive {
+                overflow: visible !important;
+                width: 100% !important;
+            }
+
+            table.datatable {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-bottom: 0 !important;
+            }
+
+            table.datatable th,
+            table.datatable td {
+                border: 1px solid #9ca3af !important;
+                padding: 6px 8px !important;
+                font-size: 11px !important;
+                color: #000 !important;
+                background-color: transparent !important;
+            }
+
+            table.datatable thead th {
+                background-color: #f3f4f6 !important;
+                font-weight: bold !important;
+                text-align: center !important;
+            }
+
+            table.datatable tfoot tr {
+                background-color: #f9fafb !important;
+                font-weight: bold !important;
+            }
+
+            .text-success {
+                color: #047857 !important;
+            }
+            .text-danger {
+                color: #b91c1c !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+
+    <!-- Print-only header -->
+    <div class="d-none d-print-block mb-4" id="print-header">
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-3">
+            <div>
+                <h3 class="fw-bold text-primary m-0">NEXGEN FOREX</h3>
+                <p class="text-muted m-0 fs-12">{{ __('account.premium_solutions') }}</p>
+            </div>
+            <div class="text-end">
+                <h4 class="fw-bold text-dark m-0">{{ __('messages.transaction_history') }}</h4>
+                <p class="text-muted m-0 fs-12">
+                    <strong>{{ __('transaction.filter') }}:</strong>
+                    @if (request('start_date') || request('end_date') || request('account_id') || request('location'))
+                        @php
+                            $filterParts = [];
+                            if (request('start_date')) $filterParts[] = __('transaction.date_from') . ': ' . request('start_date');
+                            if (request('end_date')) $filterParts[] = __('transaction.date_to') . ': ' . request('end_date');
+                            if (request('account_id')) {
+                                $acc = $accounts->firstWhere('id', request('account_id'));
+                                if ($acc) $filterParts[] = __('transaction.account') . ': ' . $acc->name;
+                            }
+                            if (request('location')) $filterParts[] = __('transaction.location') . ': ' . request('location');
+                        @endphp
+                        {{ implode(', ', $filterParts) }}
+                    @else
+                        {{ __('account.all_time') }}
+                    @endif
+                </p>
+                <p class="text-muted m-0 fs-12">
+                    <strong>{{ __('account.generated_on') }}:</strong> {{ date('Y-m-d H:i') }}
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="page-header">
         <div class="page-title">
             <h4>{{ __('messages.transaction_history') }}</h4>
         </div>
-        <div class="page-btn">
+        <div class="page-btn d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-info d-flex align-items-center gap-1 text-white" id="print-btn">
+                <i class="ti ti-printer fs-16 me-1"></i>{{ __('messages.print') }}
+            </button>
             <a href="{{ route('transactions.create') }}" class="btn btn-added" target="nexgen_create_transaction"
                 onclick="window.open(this.href, 'nexgen_create_transaction', 'width=1600,height=900,noopener,noreferrer,scrollbars=yes,resizable=yes'); return false;">
                 <i class="ti ti-plus fs-16 me-1"></i>{{ __('messages.create_transaction') }}
@@ -482,6 +620,25 @@
 
                 // Open Modal
                 $('#deleteTransactionModal').modal('show');
+            });
+
+            // Print button click event
+            $(document).on('click', '#print-btn', function() {
+                if ($.fn.DataTable.isDataTable('.datatable')) {
+                    var table = $('.datatable').DataTable();
+                    var info = table.page.info();
+                    
+                    // Switch to show all records
+                    table.page.len(-1).draw();
+                    
+                    // Wait for rendering to complete before showing print dialog
+                    setTimeout(function() {
+                        window.print();
+                        table.page.len(info.length).page(Math.floor(info.start / info.length)).draw('page');
+                    }, 250);
+                } else {
+                    window.print();
+                }
             });
         });
     </script>
