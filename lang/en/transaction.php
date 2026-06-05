@@ -9,6 +9,8 @@ return [
     'location' => 'Location',
     'number' => 'Number',
     'credit' => 'Credit',
+    'total_credit' => 'Total Credit',
+    'total_debit' => 'Total Debit',
     'debit' => 'Debit',
     'rupees_credit' => 'Rupees Credit',
     'rupees_debit' => 'Rupees Debit',

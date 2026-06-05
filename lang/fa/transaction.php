@@ -9,6 +9,8 @@ return [
     'location' => 'موقعیت',
     'number' => 'شماره',
     'credit' => 'بستانکار',
+    'total_credit' => 'بستانکار کل',
+    'total_debit' => 'بدهکار کل',
     'debit' => 'بدهکار',
     'rupees_credit' => 'بستانکار روپیه',
     'rupees_debit' => 'بدهکار روپیه',

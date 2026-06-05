@@ -9,6 +9,8 @@ return [
     'location' => 'مقام',
     'number' => 'نمبر',
     'credit' => 'باقی',
+    'total_credit' => 'کل باقی',
+    'total_debit' => 'کل رسید',
     'debit' => 'رسید',
     'rupees_credit' => 'کالداری کریڈٹ',
     'rupees_debit' => 'کالداری ڈیبٹ',

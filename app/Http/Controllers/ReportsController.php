@@ -56,6 +56,8 @@ class ReportsController extends Controller
 
         $totals = [
             'balance' => $accounts->sum('balance'),
+            'credit_total' => $accounts->sum('credit_total'),
+            'debit_total' => $accounts->sum('debit_total'),
             'rupees_balance' => $accounts->sum('rupees_balance'),
             'dollar_balance' => $accounts->sum('dollar_balance'),
             'afghani_balance' => $accounts->sum('afghani_balance'),

@@ -2,6 +2,7 @@
 @section('content')
     <style>
         @media print {
+
             .header,
             .sidebar,
             .page-header,
@@ -55,7 +56,8 @@
                 <div class="row align-items-end g-3">
                     <div class="col-lg-3">
                         <div class="form-check form-check-lg mt-4">
-                            <input type="checkbox" name="all_areas" value="1" id="all_areas" class="form-check-input" @checked($showAllAreas)>
+                            <input type="checkbox" name="all_areas" value="1" id="all_areas" class="form-check-input"
+                                @checked($showAllAreas)>
                             <label for="all_areas" class="form-check-label fw-bold">{{ __('report.all_areas') }}</label>
                         </div>
                     </div>
@@ -63,7 +65,7 @@
                         <label for="area_ids" class="form-label fw-bold">{{ __('report.select_areas') }}</label>
                         <select name="area_ids[]" id="area_ids" class="form-select" multiple @disabled($showAllAreas)>
                             @foreach ($areas as $area)
-                                <option value="{{ $area->id }}" @selected(! $showAllAreas && in_array((string) $area->id, $selectedAreas, true))>
+                                <option value="{{ $area->id }}" @selected(!$showAllAreas && in_array((string) $area->id, $selectedAreas, true))>
                                     {{ $area->name }}
                                 </option>
                             @endforeach
@@ -100,45 +102,44 @@
                             <th>{{ __('account.code') }}</th>
                             <th>{{ __('account.name') }}</th>
                             <th>{{ __('account.area') }}</th>
+                            <th class="text-end">{{ __('transaction.credit') }}</th>
+                            <th class="text-end">{{ __('transaction.debit') }}</th>
                             <th class="text-end">{{ __('transaction.balance') }}</th>
-                            <th class="text-end">{{ __('report.rupees_balance') }}</th>
-                            <th class="text-end">{{ __('report.dollar_balance') }}</th>
-                            <th class="text-end">{{ __('report.afghani_balance') }}</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($accounts as $account)
+                        @foreach ($accounts as $account)
                             <tr>
                                 <td><code>{{ $account->code }}</code></td>
                                 <td>{{ $account->name }}</td>
                                 <td>{{ $account->assignedArea?->name ?? ($account->area ?: '-') }}</td>
-                                <td class="text-end fw-bold font-monospace {{ $account->balance >= 0 ? 'text-success' : 'text-danger' }}">
+                                <td class="text-end fw-bold font-monospace text-success">
+                                    {{ number_format($account->credit_total, 2, '.', ',') }}
+                                </td>
+                                <td class="text-end fw-bold font-monospace text-danger">
+                                    {{ number_format($account->debit_total, 2, '.', ',') }}
+                                </td>
+                                <td
+                                    class="text-end font-monospace {{ $account->balance >= 0 ? 'text-success' : 'text-danger' }}">
                                     {{ number_format($account->balance, 2, '.', ',') }}
                                 </td>
-                                <td class="text-end font-monospace {{ $account->rupees_balance >= 0 ? 'text-success' : 'text-danger' }}">
-                                    {{ number_format($account->rupees_balance, 2, '.', ',') }}
-                                </td>
-                                <td class="text-end font-monospace {{ $account->dollar_balance >= 0 ? 'text-success' : 'text-danger' }}">
-                                    {{ number_format($account->dollar_balance, 2, '.', ',') }}
-                                </td>
-                                <td class="text-end font-monospace {{ $account->afghani_balance >= 0 ? 'text-success' : 'text-danger' }}">
-                                    {{ number_format($account->afghani_balance, 2, '.', ',') }}
-                                </td>
+
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted py-4">{{ __('report.no_accounts_found') }}</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                     @if ($accounts->isNotEmpty())
                         <tfoot class="table-light fw-bold">
                             <tr>
                                 <td colspan="3" class="text-end">{{ __('transaction.totals') }}:</td>
-                                <td class="text-end font-monospace">{{ number_format($totals['balance'], 2, '.', ',') }}</td>
-                                <td class="text-end font-monospace">{{ number_format($totals['rupees_balance'], 2, '.', ',') }}</td>
-                                <td class="text-end font-monospace">{{ number_format($totals['dollar_balance'], 2, '.', ',') }}</td>
-                                <td class="text-end font-monospace">{{ number_format($totals['afghani_balance'], 2, '.', ',') }}</td>
+                                <td class="text-end font-monospace">
+                                    {{ number_format($totals['credit_total'], 2, '.', ',') }}
+                                <td class="text-end font-monospace">
+                                    {{ number_format($totals['debit_total'], 2, '.', ',') }}
+                                <td class="text-end font-monospace">
+                                    {{ number_format($totals['balance'], 2, '.', ',') }}
+                                </td>
+
                             </tr>
                         </tfoot>
                     @endif
