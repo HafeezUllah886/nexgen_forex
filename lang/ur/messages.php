@@ -44,4 +44,5 @@ return [
     'completed' => 'مکمل',
     'cancelled' => 'منسوخ',
     'print' => 'پرنٹ کریں',
+    'confirm_delete' => 'حذف کی تصدیق کریں',
 ];

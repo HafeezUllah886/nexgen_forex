@@ -47,4 +47,7 @@ return [
     'generated_on' => 'تیار کردہ',
     'ledger_balances_summary' => 'لیجر بیلنس کا خلاصہ',
     'base_currency' => 'بنیادی کرنسی',
+    'delete_confirm_message' => 'کیا آپ واقعی اس اکاؤنٹ کو حذف کرنا چاہتے ہیں',
+    'delete_transactions_warning' => 'اس اکاؤنٹ سے منسلک تمام ٹرانزیکشنز بھی مستقل طور پر حذف ہو جائیں گی۔',
+    'delete' => 'حذف',
 ];

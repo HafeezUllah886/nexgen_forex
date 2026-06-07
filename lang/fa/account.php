@@ -47,4 +47,7 @@ return [
     'generated_on' => 'ایجاد شده در',
     'ledger_balances_summary' => 'خلاصه تراز دفتر کل',
     'base_currency' => 'ارز پایه',
+    'delete_confirm_message' => 'آیا مطمئن هستید که می‌خواهید این حساب را حذف کنید',
+    'delete_transactions_warning' => 'تمام تراکنش‌های مرتبط با این حساب نیز به طور دائمی حذف خواهند شد.',
+    'delete' => 'حذف',
 ];

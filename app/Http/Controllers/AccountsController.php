@@ -108,6 +108,9 @@ class AccountsController extends Controller
      */
     public function destroy(accounts $account)
     {
+        // Delete all associated transactions first
+        Transactions::where('account_id', $account->id)->delete();
+
         $account->delete();
 
         return redirect()->route('accounts.index')->with('success', __('account.account_deleted'));

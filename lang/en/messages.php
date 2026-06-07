@@ -44,4 +44,5 @@ return [
     'completed' => 'Completed',
     'cancelled' => 'Cancelled',
     'print' => 'Print',
+    'confirm_delete' => 'Confirm Delete',
 ];

@@ -66,6 +66,13 @@
                                                     {{ __('account.statement') }}
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item delete-account-btn" href="javascript:void(0);"
+                                                    data-id="{{ $account->id }}" data-name="{{ $account->name }}">
+                                                    <i class="ti ti-trash me-1 text-danger"></i>
+                                                    {{ __('account.delete') }}
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -124,6 +131,34 @@
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">
+                        <i class="ti ti-alert-triangle me-2 text-danger"></i>{{ __('messages.confirm_delete') }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-1">{{ __('account.delete_confirm_message') }} <strong id="delete_account_name" class="text-danger"></strong>?</p>
+                    <p class="text-muted small mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('account.delete_transactions_warning') }}</p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                    <form id="deleteAccountForm" method="POST" action="">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="ti ti-trash me-1"></i>{{ __('account.delete') }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Script trigger -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -139,6 +174,21 @@
 
                 // Open modal
                 $('#statementModal').modal('show');
+            });
+
+            // Delete account confirmation
+            $(document).on('click', '.delete-account-btn', function() {
+                const id = $(this).data('id');
+                const name = $(this).data('name');
+
+                // Set account name in modal
+                $('#delete_account_name').text(name);
+
+                // Set form action dynamically
+                $('#deleteAccountForm').attr('action', `/accounts/${id}`);
+
+                // Open modal
+                $('#deleteAccountModal').modal('show');
             });
         });
     </script>

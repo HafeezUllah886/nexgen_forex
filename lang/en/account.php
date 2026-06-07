@@ -47,4 +47,7 @@ return [
     'generated_on' => 'Generated On',
     'ledger_balances_summary' => 'Ledger Balances Summary',
     'base_currency' => 'Base Currency',
+    'delete_confirm_message' => 'Are you sure you want to delete the account',
+    'delete_transactions_warning' => 'This will also permanently delete all transactions linked to this account.',
+    'delete' => 'Delete',
 ];
